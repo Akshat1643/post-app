@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thoughts Chat</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #3e1f47;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 1fr 3fr;
+            gap: 10px;
+            width: 80%;
+            max-width: 1200px;
+            height: 80vh;
+            background-color: #4b2c57;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Header styling */
+        .header {
+            grid-column: span 2;
+            background-color: #5d3a6a;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            color: #f8bbd0;
+            margin: 0;
+        }
+
+        .logout-button {
+            position: absolute;
+            right: 20px;
+            padding: 8px 16px;
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #ff4f4f;
+        }
+
+        /* User list styling */
+        .user-list {
+            padding: 15px;
+            background-color: #472b59;
+            overflow-y: auto;
+            max-height: 100%;
+        }
+
+        .user-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .user-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Chat area styling */
+        .chat-area {
+            background-color: #563d65;
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chat-area.active {
+            display: flex; /* Show when active */
+        }
+
+        .chat-area h2 {
+            color: #f8bbd0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .message-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-box input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #e0e0e0;
+            color: #3e1f47;
+        }
+
+        .input-box button {
+            padding: 10px 15px;
+            background-color: #ab47bc;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-box button:hover {
+            background-color: #ba68c8;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with App Name and Logout -->
+        <div class="header">
+            <h1>Thoughts Chat</h1>
+            <button class="logout-button">Logout</button>
+        </div>
+
+        <!-- User List Section -->
+        <div class="user-list">
+            <% users.forEach(user => { %>
+                <div class="user-item" onclick="openChat('<%= user.name %>')"><%= user.name %></div>
+            <% }); %>
+        </div>
+
+        <!-- Chat Area Section -->
+        <div class="chat-area" id="chatArea">
+            <h2 id="chatHeader">Chat Area</h2>
+            <div class="message-box" id="messageBox">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Type your message here...">
+                <button>Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open chat with the selected user
+        function openChat(userName) {
+            const chatArea = document.getElementById('chatArea');
+            const chatHeader = document.getElementById('chatHeader');
+
+            chatHeader.innerText = `Chat with ${userName}`; // Update header with selected user
+            chatArea.classList.add('active'); // Show chat area
+        }
+    </script>
+</body>
+</html>
